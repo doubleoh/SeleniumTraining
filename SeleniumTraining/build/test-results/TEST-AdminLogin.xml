@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AdminLogin" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-03-27T15:38:54" hostname="KBP1-LHP-F55921" time="16.766">
+  <properties/>
+  <testcase name="step1" classname="AdminLogin" time="16.766"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 2.28.455520 (cc17746adff54984afff480136733114c6b3704b) on port 47594
+Only local connections are allowed.
+Mar 27, 2017 6:39:00 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: OSS
+]]></system-err>
+</testsuite>
