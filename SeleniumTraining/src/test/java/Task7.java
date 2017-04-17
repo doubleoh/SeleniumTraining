@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,7 +26,7 @@ public class Task7 {
 	}
 
 	@Test
-	public void test() throws InterruptedException {
+	public void test(){
 		for (int i = 0; i < 3; i++) {
 			driver.get("http://localhost/litecart/");
 			driver.findElement(By.cssSelector("div.image-wrapper > img.image")).click();

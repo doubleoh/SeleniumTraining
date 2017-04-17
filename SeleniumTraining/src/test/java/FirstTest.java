@@ -21,9 +21,10 @@ public class FirstTest {
     @Before
     public void start() {
 //    	System.setProperty("webdriver.gecko.driver", "D:/Projects/tools/webDrivers/geckodriver.exe");
-    	InternetExplorerDriverManager.getInstance().arch32().setup();
-        driver = new InternetExplorerDriver();
-        wait = new WebDriverWait(driver, 10);
+//    	InternetExplorerDriverManager.getInstance().arch32().setup();
+    	FirefoxDriverManager.getInstance().setup();
+        driver = new FirefoxDriver();
+//        wait = new WebDriverWait(driver, 10);
     }
 
 //  Create simple test which just open browser, navigates to www.google.com and then close the browser 

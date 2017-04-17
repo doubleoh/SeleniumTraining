@@ -28,7 +28,6 @@ public class AdminLogin {
 		username.sendKeys("admin");
 		password.sendKeys("admin");
 		driver.findElement(By.name("login")).click();
-		Thread.sleep(5000);
 	}
 
 	@After

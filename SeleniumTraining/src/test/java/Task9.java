@@ -13,14 +13,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.io.Files;
 
 public class Task9 {
 
 	private EventFiringWebDriver driver;
-	private WebDriverWait wait;
 
 	public static class EventsListener extends AbstractWebDriverEventListener {
 
@@ -51,7 +49,6 @@ public class Task9 {
 
 		driver = new EventFiringWebDriver(new ChromeDriver());
 		driver.register(new EventsListener());
-		wait = new WebDriverWait(driver, 10);
 
 	}
 
