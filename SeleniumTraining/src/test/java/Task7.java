@@ -1,3 +1,7 @@
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,27 +22,42 @@ public class Task7 {
 	@Before
 	public void start() {
 		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		wait = new WebDriverWait(driver, 10);
 	}
 
 	@Test
-	public void test() {
-		driver.get("http://localhost/litecart/");
-		driver.findElement(By.cssSelector("div.image-wrapper > img.image")).click();
-
+	public void test() throws InterruptedException {
 		for (int i = 0; i < 3; i++) {
-			WebElement el = driver.findElement(By.cssSelector("a[href='http://localhost/litecart/en/checkout']"));
+			driver.get("http://localhost/litecart/");
+			driver.findElement(By.cssSelector("div.image-wrapper > img.image")).click();
+			WebElement el = driver.findElement(By.cssSelector("div#cart")).findElement(By.cssSelector("span.quantity"));
 			try {
-				Select sel = new Select(driver.findElement(By.cssSelector("select[name='options[Size]']")));
+				Select sel = new Select(driver.findElement(By.cssSelector("select")));
 				sel.selectByValue("Small");
 			} catch (Exception e) {
 			}
-//			driver.findElement(By.cssSelector("input[name='quantity']")).sendKeys("1");
+
 			driver.findElement(By.cssSelector("button[name='add_cart_product']")).click();
-			wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("a.content"))));
-			driver.findElement(By.cssSelector("a[title='My Store']")).click();
+			wait.until(ExpectedConditions.attributeContains(el, "textContent", i + 1 + ""));
 		}
+		driver.findElement(By.cssSelector("div#cart")).click();
+		List<WebElement> removeButtons;
+		List<WebElement> skus;
+		do {
+			skus = driver.findElements(By.cssSelector("td.sku"));
+			removeButtons = driver.findElements(By.cssSelector("button[name='remove_cart_item']"));
+			wait.until(ExpectedConditions.elementToBeClickable(removeButtons.get(0)));
+			removeButtons.get(0).click();
+			wait.until(ExpectedConditions.stalenessOf(skus.get(0)));
+			removeButtons.remove(0);
+		} while (!removeButtons.isEmpty());
+
+		driver.get("http://localhost/litecart/");
+		assertTrue(driver.findElement(By.cssSelector("div#cart")).findElement(By.cssSelector("span.quantity")).getAttribute("textContent").equals("0"));
 	}
+
+	
 
 	@After
 	public void stop() {
