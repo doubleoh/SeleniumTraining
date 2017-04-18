@@ -1,5 +1,4 @@
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -11,8 +10,11 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 public class Task5 {
 
@@ -21,9 +23,10 @@ public class Task5 {
 	@Before
 	public void start() {
 
-		driver = new ChromeDriver();
+//		FirefoxDriverManager.getInstance().setup();
+//		driver = new ChromeDriver();
 //		driver = new FirefoxDriver();
-//		driver = new InternetExplorerDriver();
+		driver = new InternetExplorerDriver();
 	}
 
 	@Test
@@ -31,12 +34,11 @@ public class Task5 {
 		driver.get("http://localhost/litecart/en/");
 		Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
 		String browserName = caps.getBrowserName();
-		WebElement duck = driver.findElement(
-				By.cssSelector("img[src='/litecart/cache/9e29b832ba49f5808f75748a1a385cb0048d5afc160x160_fwb.png']"));
+		WebElement duck = driver.findElement(By.cssSelector("#box-campaigns"))
+				.findElement(By.cssSelector("a.link"));
 
-		String nameOnMain = duck.getAttribute("alt");
-		WebElement basePrice = driver
-				.findElement(By.cssSelector("#box-campaigns > div > ul > li > a.link > div.price-wrapper > s"));
+		String nameOnMain = duck.getAttribute("title");
+		WebElement basePrice = duck.findElement(By.cssSelector("s.regular-price"));
 		if (!browserName.equals("internet explorer")) {
 			String basePriceDecorOnMain = basePrice.getCssValue("text-decoration-line");
 			assertEquals("line-through", basePriceDecorOnMain); // strike-through
@@ -60,8 +62,7 @@ public class Task5 {
 
 		String basePriceOnMain = basePrice.getAttribute("textContent");
 
-		WebElement campaignPrice = driver
-				.findElement(By.cssSelector("#box-campaigns > div > ul > li > a.link > div.price-wrapper > strong"));
+		WebElement campaignPrice = duck.findElement(By.cssSelector("strong.campaign-price"));
 
 		if (browserName.equals("chrome")) {
 			assertEquals("bold", campaignPrice.getCssValue("font-weight")); // bold
@@ -101,8 +102,7 @@ public class Task5 {
 		String nameOnPage = duck.getAttribute("textContent");
 		assertEquals(nameOnMain, nameOnPage);
 
-		basePrice = driver
-				.findElement(By.cssSelector("#box-product > div.content > div.information > div.price-wrapper > s"));
+		basePrice = driver.findElement(By.cssSelector("s.regular-price"));
 		campaignPrice = driver.findElement(By.cssSelector("strong.campaign-price"));
 		String basePriceDecorOnItemPage = basePrice.getCssValue("text-decoration-line");
 		if (!browserName.equals("internet explorer")) {
