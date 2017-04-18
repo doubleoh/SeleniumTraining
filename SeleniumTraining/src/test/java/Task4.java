@@ -1,12 +1,10 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import junit.framework.Assert;
 
 public class Task4 {
 	WebDriver driver;
@@ -39,13 +36,13 @@ public class Task4 {
 		for(int i = 0; i<17; i++){
 			menuTree = driver.findElements(By.cssSelector("li#app-"));
 			menuTree.get(i).click();
-			org.junit.Assert.assertNotNull(ExpectedConditions.presenceOfElementLocated(By.cssSelector("h1")));
+			assertNotNull(ExpectedConditions.presenceOfElementLocated(By.cssSelector("h1")));
 			menuTree = driver.findElements(By.cssSelector("li#app-"));
 			List<WebElement> subs = menuTree.get(i).findElements(By.cssSelector("li"));
 			if (subs.size() > 1){
 				for (int k = 1; k<subs.size(); k++){
 					subs.get(k).click();
-					org.junit.Assert.assertNotNull(ExpectedConditions.presenceOfElementLocated(By.cssSelector("h1")));
+					assertNotNull(ExpectedConditions.presenceOfElementLocated(By.cssSelector("h1")));
 					menuTree = driver.findElements(By.cssSelector("li#app-"));
 					subs = menuTree.get(i).findElements(By.cssSelector("li"));
 				}
